@@ -1,2 +1,19 @@
 # CountdownRacket
-The countdown numbers Game written in Racket
+This is a numbers game of Countdown written in Racket using the application DrRacket.
+
+The objective of the Countdown numbers game is to get a target number by using 6 numbers with maths. You may only each number once, only add, subtract, divide and multiply, you may not use fractions, powers and logs.
+
+The available small numbers are 2 of each number between 1 and 10 i.e.
+> 1, 1, 2, 2, 3, 3, 4, 4, 5, 5,
+
+> 6, 6, 7, 7, 8, 8, 9, 9, 10, 10.
+
+The available big numbers are 25, 50, 75 and 100.
+
+The target number is any number between 101 and 999.
+
+In the actual game of countdown you must have at least one big number, however for simplicity's sake, we won't have that restriction on this application.
+
+The plan for this application is that we give it the the targer number, 6 useable numbers and it gives us each way to solve
+
+We will be using an algorith called reverse polish notation to help calculate the answer.
