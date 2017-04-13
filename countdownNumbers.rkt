@@ -2,8 +2,8 @@
 
 ;Creates static list of numbers and operators
 (define l (list 1 4 '+ 3 '-))
-(define y (list 1 2 3))
-(define z (list 4 5 6))
+(define y (list 1 2 3 6))
+(define z (list 4 5 7))
 
 (define n (remove-duplicates(cartesian-product(permutations l))))
 
@@ -27,7 +27,19 @@
 (define (sum x)
   (if (null? x) ; checks if list is empty, if so end the function
       0
-      ((writeln (calculate-RPN (car (car x)))) (sum (cdr x)))))
+      ((writeln (calculate-RPN (car(car x)))) (cdr x))))
 
 
 'ready
+
+
+
+
+(define (valid-rpn? e[s 0])
+  (if(null? e)
+     (if( = s 1)
+        #t
+        #f)
+     (if(eq? (car e) 1)
+        (valid-rpn?(cdr e) (+ 1 s ))
+        (valid-rpn?(cdr e) (- 1 s )))))
