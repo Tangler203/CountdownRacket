@@ -40,6 +40,6 @@
      (if( = s 1)
         #t
         #f)
-     (if(eq? (car e) 1)
+     (if(number? (car e) )
         (valid-rpn?(cdr e) (+ 1 s ))
         (valid-rpn?(cdr e) (- 1 s )))))
