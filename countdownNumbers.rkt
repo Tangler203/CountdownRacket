@@ -2,6 +2,8 @@
 
 ;Creates static list of numbers and operators
 (define l (list 1 4 '+ 3 '-))
+(define y (list 1 2 3))
+(define z (list 4 5 6))
 
 (define n (remove-duplicates(cartesian-product(permutations l))))
 
