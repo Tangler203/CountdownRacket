@@ -22,23 +22,11 @@
      [(x s) n(error "calculate-RPN: Cannot calculate the expression:" 
                    (reverse (cons x s)))])))
 
-
-
-(define (sum x)
-  (if (null? x) ; checks if list is empty, if so end the function
-      0
-      (if (valid-rpn? (car (car x)))
-          ((writeln (calculate-RPN (car(car x)))) (sum (cdr x)))
-          (sum (cdr x)))))
-
-
-'ready
-
 ;How validation should work
 
 ;2 stacks for validating
 ;1 stack (s) checks if correct amount of numbers and operands - done
-;1 stack (r) checks if expression compatible with rpn - not done
+;1 stack (r) checks if expression compatible with rpn - done
 
 ;How would stack s work?
 ;Create stack s starting at 1.
@@ -57,12 +45,6 @@
 ;if r <= 1, expression is not rpn-compatible.
 ;Stack is rpn-compatible if r >= 1.
 
-;1 + 2
-;o r
-;  1
-;1 2
-;+ 0
-
 
 
 (define (valid-rpn? e[s 0])
@@ -76,7 +58,7 @@
 
 (define (valid-rpn2? e[r 0])
   (if(null? e)
-     (if (>= r 1)
+     (if (= r 1)
          #t
          #f)
      (if(number? (car e) )
@@ -84,3 +66,13 @@
         (if(> r 1)
            (valid-rpn2? (cdr e) (- r 1))
            #f))))
+
+
+(define (sum x)
+  (if (null? x) ; checks if list is empty, if so end the function
+      0
+      (if (valid-rpn2? (car (car x)))
+          ((write (car (car x))) (writeln (calculate-RPN (car(car x))))  (sum (cdr x)))
+          (sum (cdr x)))))
+
+'ready
