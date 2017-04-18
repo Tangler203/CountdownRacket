@@ -22,30 +22,19 @@
      [(x s) n(error "calculate-RPN: Cannot calculate the expression:" 
                    (reverse (cons x s)))])))
 
-;How validation should work
+;How validation works.
 
-;2 stacks for validating
-;1 stack (s) checks if correct amount of numbers and operands - done
-;1 stack (r) checks if expression compatible with rpn - done
+;1 stack (r) for validating
 
-;How would stack s work?
-;Create stack s starting at 1.
-;Pass through expression.
-;If next element in expression is number, increase s by 1.
-;If next element in expression is operand, decrease s by 1.
-;Check stack after all elements are processed.
-;Stack is length compatible if s = 1.
 
-;How would stack r work?
-;Create stack r starting at 1.
+;Create stack r starting at .
 ;Pass through expression.
 ;If next element in expression is number, increase r by 1.
 ;If next element in expression is operand, check if r > 1.
 ;If r > 1, decrease r by 1 and move on.
-;if r <= 1, expression is not rpn-compatible.
-;Stack is rpn-compatible if r >= 1.
+;if r < 2, expression is not rpn-compatible. Move on to next expression
+;Stack is rpn-compatible if r = 1.
 
-;This is now obsolete. Only need one stack r.
 
 
 
