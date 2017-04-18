@@ -56,6 +56,13 @@
 ;Check stack after each expression is processed.
 ;Stack is rpn-compatible if r >= 1
 
+;1 + 2
+;o r
+;  1
+;1 2
+;+ 0
+
+
 
 (define (valid-rpn? e[s 0])
   (if(null? e)
@@ -65,3 +72,14 @@
      (if(number? (car e) )
         (valid-rpn?(cdr e) (+ s 1 ))
         (valid-rpn?(cdr e) (- s 1 )))))
+
+(define (valid-rpn2? e[r 1])
+  (if(null? e)
+     (if (>= r 1)
+         #t
+         #f)
+     (if (>= r 1)
+         (if(number? (car e) )
+            (valid-rpn2? (cdr e) (+ r 1))
+            (valid-rpn2? (cdr e) (- r 2)))
+         #f)))
