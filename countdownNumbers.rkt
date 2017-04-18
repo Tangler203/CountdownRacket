@@ -52,9 +52,10 @@
 ;Create stack r starting at 1.
 ;Pass through expression.
 ;If next element in expression is number, increase r by 1.
-;If next element in expression is operand, decrease r by 2.
-;Check stack after each expression is processed.
-;Stack is rpn-compatible if r >= 1
+;If next element in expression is operand, check if r > 1.
+;If r > 1, decrease r by 1 and move on.
+;if r <= 1, expression is not rpn-compatible.
+;Stack is rpn-compatible if r >= 1.
 
 ;1 + 2
 ;o r
@@ -73,13 +74,13 @@
         (valid-rpn?(cdr e) (+ s 1 ))
         (valid-rpn?(cdr e) (- s 1 )))))
 
-(define (valid-rpn2? e[r 1])
+(define (valid-rpn2? e[r 0])
   (if(null? e)
      (if (>= r 1)
          #t
          #f)
-     (if (>= r 1)
-         (if(number? (car e) )
-            (valid-rpn2? (cdr e) (+ r 1))
-            (valid-rpn2? (cdr e) (- r 2)))
-         #f)))
+     (if(number? (car e) )
+        (valid-rpn2? (cdr e) (+ r 1))
+        (if(> r 1)
+           (valid-rpn2? (cdr e) (- r 1))
+           #f))))
