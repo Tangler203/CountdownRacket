@@ -55,17 +55,17 @@
          #t
          #f)
      (if(number? (car e) )
-        (valid-rpn2? (cdr e) (+ r 1))
+        (valid-rpn? (cdr e) (+ r 1))
         (if(> r 1)
-           (valid-rpn2? (cdr e) (- r 1))
+           (valid-rpn? (cdr e) (- r 1))
            #f))))
 
 
 (define (sum x)
   (if (null? x) ; checks if list is empty, if so end the function
       0
-      (if (valid-rpn2? (car (car x)))
-          ((write (car (car x))) (writeln (calculate-RPN (car(car x))))  (sum (cdr x)))
+      (if (valid-rpn? (car (car x)))
+          ((write (car (car x))) (writeln (calculate-RPN (car(car x))))  (sum (cdr x)) )
           (sum (cdr x)))))
 
 'ready
