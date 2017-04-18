@@ -45,18 +45,11 @@
 ;if r <= 1, expression is not rpn-compatible.
 ;Stack is rpn-compatible if r >= 1.
 
+;This is now obsolete. Only need one stack r.
 
 
-(define (valid-rpn? e[s 0])
-  (if(null? e)
-     (if( = s 1)
-        #t
-        #f)
-     (if(number? (car e) )
-        (valid-rpn?(cdr e) (+ s 1 ))
-        (valid-rpn?(cdr e) (- s 1 )))))
 
-(define (valid-rpn2? e[r 0])
+(define (valid-rpn? e[r 0])
   (if(null? e)
      (if (= r 1)
          #t
