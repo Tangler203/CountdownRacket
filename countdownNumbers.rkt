@@ -27,12 +27,34 @@
 (define (sum x)
   (if (null? x) ; checks if list is empty, if so end the function
       0
-      ((writeln (calculate-RPN (car(car x)))) (cdr x))))
+      (if (valid-rpn? (car (car x)))
+          ((writeln (calculate-RPN (car(car x)))) (sum (cdr x)))
+          (sum (cdr x)))))
 
 
 'ready
 
+;How validation should work
 
+;2 stacks for validating
+;1 stack (s) checks if correct amount of numbers and operands - done
+;1 stack (r) checks if expression compatible with rpn - not done
+
+;How would stack s work?
+;Create stack s starting at 1.
+;Pass through expression.
+;If next element in expression is number, increase s by 1.
+;If next element in expression is operand, decrease s by 1.
+;Check stack after all elements are processed.
+;Stack is length compatible if s = 1.
+
+;How would stack r work?
+;Create stack r starting at 1.
+;Pass through expression.
+;If next element in expression is number, increase r by 1.
+;If next element in expression is operand, decrease r by 2.
+;Check stack after each expression is processed.
+;Stack is rpn-compatible if r >= 1
 
 
 (define (valid-rpn? e[s 0])
@@ -41,5 +63,5 @@
         #t
         #f)
      (if(number? (car e) )
-        (valid-rpn?(cdr e) (+ 1 s ))
-        (valid-rpn?(cdr e) (- 1 s )))))
+        (valid-rpn?(cdr e) (+ s 1 ))
+        (valid-rpn?(cdr e) (- s 1 )))))
