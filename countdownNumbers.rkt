@@ -1,10 +1,7 @@
 #lang racket
 
 ;Creates static list of numbers and operators
-(define l (list 1 4 '+ 3 '-))
 (define f null)
-(define x1 null)
-(define x2 null)
 
 ;static list of operands
 (define op (list '+ '+ '+ '+ '+ '- '- '- '- '- '- '* '* '* '* '* '/ '/ '/ '/ '/ ))
@@ -28,9 +25,6 @@
 
 ;How validation works.
 
-;1 stack (r) for validating
-
-
 ;Create stack r starting at 0.
 ;Pass through expression.
    ;If next element in expression is number, increase r by 1.
@@ -51,37 +45,32 @@
            (valid-rpn? (cdr e) (- r 1))
            #f))))
 
-(define (validlength? e[s 0])
-  (if(null? e)
-     (if( = s 1)
-        #t
-        #f)
-     (if(number? (car e) )
-        (validlength?(cdr e) (+ s 1 ))
-        (validlength?(cdr e) (- s 1 )))))
 
 
 (define (sum x)
-  (cond ((null? x)
-         0)
-        (else (cond ((valid-rpn? (car x))
-                     ((write (car x))
-                      (writeln (calculate-RPN (car x)))
-                      (sum (cdr x))))
-                    (else 0)))))
+  (if (null? x)
+      0
+      (cond [(valid-rpn? (car x))
+             (writeln (car x))]
+              ;(writeln (calculate-RPN (car x))))]
+              ;(sum (cdr x)))]
+            [else (sum (cdr x))])))
 
 
 (define (mklist l (s 2) (g null))
   (cond ((<= s (length l))
          (mklist l (+ s 1)
-         (append g (cartesian-product (combinations l s) (remove-duplicates(combinations op (- s 1)))))))
-      (else  g)))
+                 (append g (cartesian-product (combinations l s) (remove-duplicates(combinations op (- s 1)))))))
+        (else  g)))
 
 (define (rpn l)
   (set! f (mklist l)))
 
 (define (makep l)
-  (map (sum (permutations (flatten (car l))))))
+  (sum (permutations (flatten (car l)))) (makep (cdr l)))
+
+(define (sum2 x)
+  (cdr x))
 
 'ready
 
