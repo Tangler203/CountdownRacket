@@ -3,6 +3,8 @@
 ;Creates static list of numbers and operators
 (define l (list 1 4 '+ 3 '-))
 (define f null)
+(define x1 null)
+(define x2 null)
 
 ;static list of operands
 (define op (list '+ '+ '+ '+ '+ '- '- '- '- '- '- '* '* '* '* '* '/ '/ '/ '/ '/ ))
@@ -62,9 +64,11 @@
 (define (sum x)
   (cond ((null? x)
          0)
-        (else (cond ((valid-rpn? (flatten (car x)))
-                     ((write (flatten (car x))) (writeln (calculate-RPN (flatten (car x))))  (sum (cdr x)) ))
-                    (else (sum (cdr x)))))))
+        (else (cond ((valid-rpn? (car x))
+                     ((write (car x))
+                      (writeln (calculate-RPN (car x)))
+                      (sum (cdr x)) 0))
+                    (else (sum (cdr x)) 0)))))
 
 
 (define (mklist l (s 2) (g null))
@@ -73,9 +77,17 @@
       (else  g)))
 
 (define (rpn l)
-  (set! f (mklist l))
-  (map (lambda (s)(length (flatten s))) f))
+  (set! f (mklist l)))
+
+(define (makep l)
+  (map (sum (permutations (flatten (car l))))))
 
 'ready
 
+(define (search-for-primes n m)
+  (cond ((< n m)
+         (sum n)
+         (search-for-primes (+ n 1) m))
+        (else
+         (display " calculating stopped. "))))
 
