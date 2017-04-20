@@ -51,9 +51,11 @@
   (if (null? x)
       0
       (cond [(valid-rpn? (car x))
-             (write (car x))
-              (writeln (calculate-RPN (car x)))
-              (sum (cdr x))]
+             (cond [(eqv? (car (calculate-RPN (car x))) 128)
+                    (write (car x))
+                    (writeln (calculate-RPN (car x)))
+                    (sum (cdr x))]
+                   [else (sum (cdr x))])]
             [else (sum (cdr x))])))
 
 
