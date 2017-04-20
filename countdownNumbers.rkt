@@ -67,13 +67,14 @@
         (else (cond ((valid-rpn? (car x))
                      ((write (car x))
                       (writeln (calculate-RPN (car x)))
-                      (sum (cdr x)) 0))
-                    (else (sum (cdr x)) 0)))))
+                      (sum (cdr x))))
+                    (else 0)))))
 
 
 (define (mklist l (s 2) (g null))
   (cond ((<= s (length l))
-         (mklist l (+ s 1) (append g (cartesian-product (combinations l s) (remove-duplicates(combinations op (- s 1)))))))
+         (mklist l (+ s 1)
+         (append g (cartesian-product (combinations l s) (remove-duplicates(combinations op (- s 1)))))))
       (else  g)))
 
 (define (rpn l)
@@ -84,10 +85,4 @@
 
 'ready
 
-(define (search-for-primes n m)
-  (cond ((< n m)
-         (sum n)
-         (search-for-primes (+ n 1) m))
-        (else
-         (display " calculating stopped. "))))
 
