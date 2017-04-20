@@ -51,9 +51,9 @@
   (if (null? x)
       0
       (cond [(valid-rpn? (car x))
-             (writeln (car x))]
-              ;(writeln (calculate-RPN (car x))))]
-              ;(sum (cdr x)))]
+             (write (car x))
+              (writeln (calculate-RPN (car x)))
+              (sum (cdr x))]
             [else (sum (cdr x))])))
 
 
@@ -64,13 +64,13 @@
         (else  g)))
 
 (define (rpn l)
-  (set! f (mklist l)))
+  (set! f (mklist l)) (makep f))
 
 (define (makep l)
-  (sum (permutations (flatten (car l)))) (makep (cdr l)))
+  (cond [(null? l)
+      0]
+      [else ((sum (permutations (flatten (car l)))) (makep (cdr l)))]))
 
-(define (sum2 x)
-  (cdr x))
 
 'ready
 
