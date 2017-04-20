@@ -1,6 +1,15 @@
 # CountdownRacket
 This is a numbers game of Countdown written in Racket using the application DrRacket.
 
+## How to Run
+
+To run the game open the file "countdownNumbers.rkt" in DrRacket and use the function (rpn l t). l being a list of numbers (recommended max of 6) and t being the target number
+
+## Issues
+
+Crashes when it divides by zero.
+Crashes at end of function, does not affect functionality
+
 The objective of the Countdown numbers game is to get a target number by using 6 numbers with maths. You may only each number once, only add, subtract, divide and multiply, you may not use fractions, powers and logs.
 
 The available small numbers are 2 of each number between 1 and 10 i.e.
