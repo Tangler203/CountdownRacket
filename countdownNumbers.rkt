@@ -4,7 +4,7 @@
 (define f null)
 
 ;static list of operands
-(define op (list '+ '+ '+ '+ '+ '- '- '- '- '- '- '* '* '* '* '* '/ '/ '/ '/ '/ ))
+(define op (list '+ '+ '+ '+ '+ '- '- '- '- '- '- '* '* '* '* '*  ))
 
 
 
@@ -47,16 +47,16 @@
 
 
 
-(define (sum x)
+(define (sum x t)
   (if (null? x)
       0
       (cond [(valid-rpn? (car x))
-             (cond [(eqv? (car (calculate-RPN (car x))) 128)
+             (cond [(eqv? (car (calculate-RPN (car x))) t)
                     (write (car x))
                     (writeln (calculate-RPN (car x)))
-                    (sum (cdr x))]
-                   [else (sum (cdr x))])]
-            [else (sum (cdr x))])))
+                    (sum (cdr x) t)]
+                   [else (sum (cdr x) t)])]
+            [else (sum (cdr x) t)])))
 
 
 (define (mklist l (s 2) (g null))
@@ -65,13 +65,13 @@
                  (append g (cartesian-product (combinations l s) (remove-duplicates(combinations op (- s 1)))))))
         (else  g)))
 
-(define (rpn l)
-  (set! f (mklist l)) (makep f))
+(define (rpn l t)
+  (set! f (mklist l)) (makep f t))
 
-(define (makep l)
+(define (makep l t)
   (cond [(null? l)
       0]
-      [else ((sum (permutations (flatten (car l)))) (makep (cdr l)))]))
+      [else ((sum (permutations (flatten (car l))) t) (makep (cdr l) t))]))
 
 
 'ready
