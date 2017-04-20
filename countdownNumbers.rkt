@@ -2,12 +2,12 @@
 
 ;Creates static list of numbers and operators
 (define l (list 1 4 '+ 3 '-))
+(define f null)
 
-(define l1 (list 1 2 3))
-(define l2 (list '+ '- '* '/))
+;static list of operands
+(define op (list '+ '+ '+ '+ '+ '- '- '- '- '- '- '* '* '* '* '* '/ '/ '/ '/ '/ ))
 
 
-(define n (remove-duplicates(permutations l)))
 
 ; Reverse Polish Notation function, Sourced from https://rosettacode.org/wiki/Parsing/RPN_calculator_algorithm#Racket
 
@@ -21,7 +21,7 @@
      [('* (list x y s ___)) (cons (* x y) s)]
      [('/ (list x y s ___)) (cons (/ y x) s)]
      [('^ (list x y s ___)) (cons (expt y x) s)]
-     [(x s) n(error "calculate-RPN: Cannot calculate the expression:" 
+     [(x s) (error "calculate-RPN: Cannot calculate the expression:" 
                    (reverse (cons x s)))])))
 
 ;How validation works.
@@ -31,15 +31,12 @@
 
 ;Create stack r starting at 0.
 ;Pass through expression.
-;If next element in expression is number, increase r by 1.
-;If next element in expression is operand, check if r > 1.
-;If r > 1, decrease r by 1 and move on.
-;if r < 2, expression is not rpn-compatible. Move on to next expression
+   ;If next element in expression is number, increase r by 1.
+   ;If next element in expression is operand, check if r > 1.
+      ;If r > 1, decrease r by 1 and move on.
+      ;if r < 2, expression is not rpn-compatible. Move on to next expression
 ;Stack is rpn-compatible if r = 1.
  
-(define (express l)
-  (remove-duplicates(permutations (append l l2))))
-
 
 (define (valid-rpn? e[r 0])
   (if(null? e)
@@ -52,12 +49,33 @@
            (valid-rpn? (cdr e) (- r 1))
            #f))))
 
+(define (validlength? e[s 0])
+  (if(null? e)
+     (if( = s 1)
+        #t
+        #f)
+     (if(number? (car e) )
+        (validlength?(cdr e) (+ s 1 ))
+        (validlength?(cdr e) (- s 1 )))))
+
 
 (define (sum x)
-  (if (null? (car x)) ; checks if list is empty, if so end the function
-      0
-      (if (valid-rpn? (car x))
-          ((write (car x)) (writeln (calculate-RPN (car x)))  (sum (cdr x)) )
-          (sum (cdr x)))))
+  (cond ((null? x)
+         0)
+        (else (cond ((valid-rpn? (flatten (car x)))
+                     ((write (flatten (car x))) (writeln (calculate-RPN (flatten (car x))))  (sum (cdr x)) ))
+                    (else (sum (cdr x)))))))
+
+
+(define (mklist l (s 2) (g null))
+  (cond ((<= s (length l))
+         (mklist l (+ s 1) (append g (cartesian-product (combinations l s) (remove-duplicates(combinations op (- s 1)))))))
+      (else  g)))
+
+(define (rpn l)
+  (set! f (mklist l))
+  (map (lambda (s)(length (flatten s))) f))
 
 'ready
+
+
