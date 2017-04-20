@@ -52,9 +52,7 @@
       0
       (cond [(valid-rpn? (car x))
              (cond [(eqv? (car (calculate-RPN (car x))) t)
-                    (write (car x))
-                    (writeln (calculate-RPN (car x)))
-                    (sum (cdr x) t)]
+                    (writeln (car x))]
                    [else (sum (cdr x) t)])]
             [else (sum (cdr x) t)])))
 
@@ -69,9 +67,8 @@
   (set! f (mklist l)) (makep f t))
 
 (define (makep l t)
-  (cond [(null? l)
-      0]
-      [else ((sum (permutations (flatten (car l))) t) (makep (cdr l) t))]))
+  (cond [(null? l) (write 'Target:) t]
+      [else (sum (permutations (flatten (car l))) t)(makep (cdr l) t)]))
 
 
 'ready
