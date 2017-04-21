@@ -4,7 +4,7 @@
 (define f null)
 
 ;static list of operands
-(define op (list '+ '+ '+ '+ '+ '- '- '- '- '- '- '* '* '* '* '*  ))
+(define op (list '+ '+ '+ '+ '+ '- '- '- '- '- '- '* '* '* '* '*  '/ '/ '/ '/ '/))
 
 
 
@@ -18,8 +18,11 @@
      [('+ (list x y s ___)) (cons (+ x y) s)]
      [('- (list x y s ___)) (cons (- y x) s)]
      [('* (list x y s ___)) (cons (* x y) s)]
-     [('/ (list x y s ___)) (cons (/ y x) s)]
-     [('^ (list x y s ___)) (cons (expt y x) s)]
+     [('/ (list x y s ___)) (if (= y 0)
+                                (cons 0 s)
+                                (if (= x 0)
+                                    (cons 0 s)
+                                    (cons (/ x y) s)))]
      [(x s) (error "calculate-RPN: Cannot calculate the expression:" 
                    (reverse (cons x s)))])))
 

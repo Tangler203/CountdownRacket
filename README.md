@@ -7,8 +7,8 @@ To run the game open the file "countdownNumbers.rkt" in DrRacket and use the fun
 
 ## Issues
 
-Crashes when it divides by zero.
-Crashes at end of function, does not affect functionality
+Crashes when it divides by zero. (Should be fixed)
+Can crash at 6 numbers, although that might be because it takes up too much memory
 
 The objective of the Countdown numbers game is to get a target number by using 6 numbers with maths. You may only each number once, only add, subtract, divide and multiply, you may not use fractions, powers and logs.
 
@@ -25,4 +25,4 @@ In the actual game of countdown you must have at least one big number, however f
 
 The plan for this application is that we give it the the targer number, 6 useable numbers and it gives us each way to solve
 
-We will be using an algorith called reverse polish notation to help calculate the answer.
+We will be using an algorithm called reverse polish notation to help calculate the answer.
