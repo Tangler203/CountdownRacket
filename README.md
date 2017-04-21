@@ -25,7 +25,10 @@ At the end of the function. It always output Target:t. This way you know when it
 ## Issues
 
 Crashes when it divides by zero. (Should be fixed)
+
 Can crash at 6 numbers, although that might be because it takes up too much memory
+
+## Objective of Countdown
 
 The objective of the Countdown numbers game is to get a target number by using 6 numbers with maths. You may only each number once, only add, subtract, divide and multiply, you may not use fractions, powers and logs.
 
