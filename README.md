@@ -8,6 +8,7 @@ To run the game open the file "countdownNumbers.rkt" in DrRacket and use the fun
 ### Example
 
 Input (rpn (list 1 2 3) 6). The function tries to solve for the number 6 using only the numbers 1, 2 and 3. It will return the following lines 
+
 (2 3 *)
 
 (1 2 3 + +)
