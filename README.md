@@ -1,6 +1,10 @@
 # CountdownRacket
 This is a numbers game of Countdown written in Racket using the application DrRacket.
 
+## Issues
+
+Performance hit when using 5 or six numbers.
+
 ## How to Run
 
 To run the game open the file "countdownNumbers.rkt" in DrRacket and use the function (rpn l t). l being a list of numbers (recommended max of 6) and t being the target number
